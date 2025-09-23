@@ -2,22 +2,26 @@
 set -e
 cd ~
 
-sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+if command -c yay >/dev/null 2>&1; then
+  echo "yay is already installed"
+else
+  sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+fi
 
 cd ..
 
 rm -rf yay
-yay -S \
+yay -S --needed \
   zsh \
   curl \
   neovim \
+  lazygit \
   wl-clipboard \
   sublime-text \
   hyprpolkitagent \
-  quickshell \
   ddcutil \
   brightnessctl \
-  app2unit-git \
+  app2unit \
   base-devel \
   fftw \
   alsa-lib \
@@ -36,6 +40,19 @@ yay -S \
   swappy \
   libqalculate \
   qt6-base \
+  libnotify \
+  grim \
+  dart-sass \
+  slurp \
+  gpu-screen-recorder \
+  glib1 \
+  cliphist \
+  fuzzel \
+  python-build \
+  python-installer \
+  python-hatch-vcs \
+  caelestia-cli \
+  cronie \
   --noconfirm
 
 INSTALL_DIR="${HOME}/.local/share/caelestia"
@@ -49,22 +66,10 @@ fi
 
 cd "$INSTALL_DIR"
 
-fish ./install.fish aur-helper=--yay "$@"
-
-REPO_URL="https://github.com/DanikGu/dotfiles.git"
-git clone "$REPO_URL" "$HOME/dotfiles"
-mkdir -p ~/.config
-if [ -d "$HOME/dotfiles/nvim" ]; then
-  cp -r "$HOME/dotfiles/nvim" ~/.config/
-fi
-
-if [ -d "$HOME/dotfiles/kitty" ]; then
-  cp -r "$HOME/dotfiles/kitty" ~/.config/
-fi
-
-cp "$HOME/dotfiles/.zshrc" "$HOME/"
-
-echo "Dotfiles setup complete. ✅"
+rm -rf ~/.config/hypr
+rm -rf ~/.config/btop
+aur_helper="yay"
+fish ./install.fish $@
 
 curl -L https://dot.net/v1/dotnet-install.sh -o dotnet-install.sh
 chmod +x ./dotnet-install.sh
@@ -73,7 +78,7 @@ chmod +x ./dotnet-install.sh
 ./dotnet-install.sh --channel 9.0
 ./dotnet-install.sh --channel 8.0
 
-yay -S \
+yay -S --needed \
   visual-studio-code-bin \
   rider \
   google-chrome \
@@ -85,5 +90,24 @@ yay -S \
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
-chsh -s /usr/bin/zsh
+chsh -s $(which zsh)
+
+# Add cron job
+(
+  crontab -l 2>/dev/null
+  echo "* * * * * $HOME/myscripts/day_night.sh"
+) | crontab -
+
+mkdir -p ~/.config
+mkdir -p ~/.config/caelestia
+cp -r "$HOME/dotfiles/nvim" ~/.config/
+cp -r "$HOME/dotfiles/kitty" ~/.config/
+cp -r "$HOME/dotfiles/.zshrc" "$HOME/"
+cp -r "$HOME/dotfiles/hyper-user.conf" ~/.config/caelestia/hypr-user.conf
+cp -r "$HOME/dotfiles/CustomHyprConfigs/monitors.conf" ~/.config/hypr-custom/monitors.conf
+cp -r "$HOME/dotfiles/CustomHyprConfigs/monitors-alt.conf" ~/.config/hypr-custom/monitors-alt.conf
+cp -r "$HOME/dotfiles/theme" ~/theme
+cp -r "$HOME/dotfiles/myscripts" ~/myscripts
+cp -r "$HOME/dotfiles/.oh-my-zsh" ~/.oh-my-zsh
+chmod +x /home/danik/dotfiles/myscripts/*
 
