@@ -12,7 +12,6 @@ yay -S \
   curl \
   neovim \
   wl-clipboard \
-  vivaldi \
   sublime-text \
   hyprpolkitagent \
   quickshell \
@@ -81,6 +80,7 @@ yay -S \
   materialgram-bin \
   discord \
   teams-for-linux \
+  vivaldi \
   cisco-anyconnect
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
