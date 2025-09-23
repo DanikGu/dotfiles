@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 cd ~
 
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
@@ -8,13 +8,13 @@ cd ..
 
 rm -rf yay
 yay -S \
+  zsh \
   curl \
   neovim \
   wl-clipboard \
   vivaldi \
   sublime-text \
   hyprpolkitagent \
-  caelestia-cli \
   quickshell \
   ddcutil \
   brightnessctl \
@@ -23,7 +23,6 @@ yay -S \
   fftw \
   alsa-lib \
   iniparser \
-  pulseaudio \
   pkgconf \
   networkmanager \
   lm-sensors \
@@ -38,27 +37,20 @@ yay -S \
   swappy \
   libqalculate \
   qt6-base \
-  visual-studio-code-bin \
-  rider \
-  google-chrome \
-  materialgram-bin \
-  discord \
-  teams-for-linux \
-  cisco-anyconnect \
   --noconfirm
 
 INSTALL_DIR="${HOME}/.local/share/caelestia"
 
 if [ -d "$INSTALL_DIR" ]; then
-  echo "Error: Directory ${INSTALL_DIR} already exists." >&2
-  echo "Please remove it first if you want to reinstall." >&2
-  exit 1
+  cd "$INSTALL_DIR"
+  git pull
+else
+  git clone https://github.com/DanikGu/caelestia.git "$INSTALL_DIR"
 fi
 
-git clone https://github.com/DanikGu/caelestia.git "$INSTALL_DIR"
 cd "$INSTALL_DIR"
 
-fish ./install.fish "$@"
+fish ./install.fish aur-helper=--yay "$@"
 
 REPO_URL="https://github.com/DanikGu/dotfiles.git"
 git clone "$REPO_URL" "$HOME/dotfiles"
@@ -70,7 +62,8 @@ fi
 if [ -d "$HOME/dotfiles/kitty" ]; then
   cp -r "$HOME/dotfiles/kitty" ~/.config/
 fi
-rm -rf "$HOME/dotfiles"
+
+cp "$HOME/dotfiles/.zshrc" "$HOME/"
 
 echo "Dotfiles setup complete. ✅"
 
@@ -80,3 +73,17 @@ chmod +x ./dotnet-install.sh
 ./dotnet-install.sh --version latest --runtime aspnetcore
 ./dotnet-install.sh --channel 9.0
 ./dotnet-install.sh --channel 8.0
+
+yay -S \
+  visual-studio-code-bin \
+  rider \
+  google-chrome \
+  materialgram-bin \
+  discord \
+  teams-for-linux \
+  cisco-anyconnect
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+chsh -s /usr/bin/zsh
+
