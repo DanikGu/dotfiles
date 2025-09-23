@@ -41,6 +41,10 @@ yay -S \
   visual-studio-code-bin \
   rider \
   google-chrome \
+  materialgram-bin \
+  discord \
+  teams-for-linux \
+  cisco-anyconnect \
   --noconfirm
 
 INSTALL_DIR="${HOME}/.local/share/caelestia"
