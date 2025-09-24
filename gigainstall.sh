@@ -85,7 +85,10 @@ yay -S --needed \
   materialgram-bin \
   discord \
   teams-for-linux \
-  vivaldi
+  vivaldi \
+  thunar \
+  cargo \
+  --noconfirm
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
@@ -111,3 +114,16 @@ cp -r "$HOME/dotfiles/theme" ~/theme
 cp -r "$HOME/dotfiles/myscripts" ~/myscripts
 cp -r $HOME/dotfiles/zsh/* ~/.oh-my-zsh
 chmod +x ~/myscripts/*
+
+git config --global user.name "DanikGu"
+git config --global user.email "petrikpzto4kin@gmail.com"
+
+yay -S --needed libsecret --noconfirm
+CREDENTIAL_HELPER_PATH=$(whereis git-credential-libsecret | awk '{print $2}')
+git config --global credential.helper "$CREDENTIAL_HELPER_PATH"
+
+git clone https://github.com/Mauitron/NiflVeil.git
+cd NiflVeil/niflveil
+cargo build --release
+sudo cp target/release/niflveil /usr/local/bin/
+
