@@ -99,6 +99,8 @@ chsh -s $(which zsh)
   crontab -l 2>/dev/null
   echo "* * * * * $HOME/myscripts/day_night.sh"
 ) | crontab -
+sudo systemctl enable cronie.service
+sudo systemctl start cronie.service
 
 mkdir -p ~/.config
 mkdir -p ~/.config/caelestia
