@@ -119,11 +119,10 @@ git config --global user.name "DanikGu"
 git config --global user.email "petrikpzto4kin@gmail.com"
 
 yay -S --needed libsecret --noconfirm
-CREDENTIAL_HELPER_PATH=$(whereis git-credential-libsecret | awk '{print $2}')
+CREDENTIAL_HELPER_PATH=$(whereis secret-tool | awk '{print $2}')
 git config --global credential.helper "$CREDENTIAL_HELPER_PATH"
 
 git clone https://github.com/Mauitron/NiflVeil.git
 cd NiflVeil/niflveil
 cargo build --release
 sudo cp target/release/niflveil /usr/local/bin/
-
