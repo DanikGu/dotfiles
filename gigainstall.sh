@@ -109,5 +109,5 @@ cp -r "$HOME/dotfiles/CustomHyprConfigs/monitors.conf" ~/.config/hypr-custom/mon
 cp -r "$HOME/dotfiles/CustomHyprConfigs/monitors-alt.conf" ~/.config/hypr-custom/monitors-alt.conf
 cp -r "$HOME/dotfiles/theme" ~/theme
 cp -r "$HOME/dotfiles/myscripts" ~/myscripts
-cp -r "$HOME/dotfiles/zsh/*" ~/.oh-my-zsh
+cp -r $HOME/dotfiles/zsh/* ~/.oh-my-zsh
 chmod +x ~/myscripts/*
