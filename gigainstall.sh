@@ -118,11 +118,12 @@ chmod +x ~/myscripts/*
 git config --global user.name "DanikGu"
 git config --global user.email "petrikpzto4kin@gmail.com"
 
-yay -S --needed libsecret gnome-keyring --noconfirm
+yay -S --needed libsecret gnome-keyring github-cli --noconfirm
 systemctl --user enable gcr-ssh-agent.socket
 systemctl --user start gcr-ssh-agent.socket
-CREDENTIAL_HELPER_PATH=$(whereis secret-tool | awk '{print $2}')
-git config --global credential.helper "$CREDENTIAL_HELPER_PATH"
+git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
+printf "aPassword" | secret-tool store --label="test" foo bar
+gh auth login
 
 git clone https://github.com/Mauitron/NiflVeil.git
 cd NiflVeil/niflveil
