@@ -85,8 +85,7 @@ yay -S --needed \
   materialgram-bin \
   discord \
   teams-for-linux \
-  vivaldi \
-  cisco-anyconnect
+  vivaldi
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
@@ -100,14 +99,15 @@ chsh -s $(which zsh)
 
 mkdir -p ~/.config
 mkdir -p ~/.config/caelestia
+mkdir -p ~/.config/hypr-custom
+mkdir -p ~/.oh-my-zsh
 cp -r "$HOME/dotfiles/nvim" ~/.config/
 cp -r "$HOME/dotfiles/kitty" ~/.config/
 cp -r "$HOME/dotfiles/.zshrc" "$HOME/"
-cp -r "$HOME/dotfiles/hyper-user.conf" ~/.config/caelestia/hypr-user.conf
+cp -r "$HOME/dotfiles/hypr-user.conf" ~/.config/caelestia/hypr-user.conf
 cp -r "$HOME/dotfiles/CustomHyprConfigs/monitors.conf" ~/.config/hypr-custom/monitors.conf
 cp -r "$HOME/dotfiles/CustomHyprConfigs/monitors-alt.conf" ~/.config/hypr-custom/monitors-alt.conf
 cp -r "$HOME/dotfiles/theme" ~/theme
 cp -r "$HOME/dotfiles/myscripts" ~/myscripts
-cp -r "$HOME/dotfiles/.oh-my-zsh" ~/.oh-my-zsh
-chmod +x /home/danik/dotfiles/myscripts/*
-
+cp -r "$HOME/dotfiles/zsh/*" ~/.oh-my-zsh
+chmod +x ~/myscripts/*
