@@ -118,11 +118,13 @@ chmod +x ~/myscripts/*
 git config --global user.name "DanikGu"
 git config --global user.email "petrikpzto4kin@gmail.com"
 
-yay -S --needed libsecret --noconfirm
+yay -S --needed libsecret gnome-keyring --noconfirm
+systemctl --user enable gcr-ssh-agent.socket
+systemctl --user start gcr-ssh-agent.socket
 CREDENTIAL_HELPER_PATH=$(whereis secret-tool | awk '{print $2}')
 git config --global credential.helper "$CREDENTIAL_HELPER_PATH"
 
 git clone https://github.com/Mauitron/NiflVeil.git
 cd NiflVeil/niflveil
 cargo build --release
-sudo cp target/release/niflveil /usr/local/bin/
+cp -r target/release/niflveil /usr/local/bin/
