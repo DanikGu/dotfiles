@@ -61,6 +61,7 @@ yay -S --needed \
   cronie \
   nodejs \
   npm \
+  qpwgraph \
   --noconfirm
 
 INSTALL_DIR="${HOME}/.local/share/caelestia"
