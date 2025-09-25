@@ -79,6 +79,5 @@ echo "cuur wallpaper" + $wallpaper_to_set
 
 # Apply the wallpaper to current display.
 caelestia wallpaper -f "$wallpaper_to_set"
-sleep 1
-# Exit with success.
+caelestia scheme set -n dynamic
 exit 0
