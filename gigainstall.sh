@@ -12,6 +12,12 @@ cd ..
 
 rm -rf yay
 yay -S --needed \
+  superfile \
+  fzf \
+  ripgrep \
+  fd \
+  cisco-secure-client \
+  tree-sitter-cli \
   zsh \
   curl \
   neovim \
@@ -104,6 +110,9 @@ chsh -s $(which zsh)
 ) | crontab -
 sudo systemctl enable cronie.service
 sudo systemctl start cronie.service
+
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+rm -rf ~/.config/nvim/.git
 
 mkdir -p ~/.config
 mkdir -p ~/.config/caelestia
