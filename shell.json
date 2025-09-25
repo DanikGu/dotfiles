@@ -15,5 +15,8 @@
   "services": {
     "useFahrenheit": false,
     "smartScheme": true
+  },
+  "border": {
+    "thickness": 1
   }
 }
