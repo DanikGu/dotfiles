@@ -116,7 +116,7 @@ cp -r "$HOME/dotfiles/hypr-user.conf" ~/.config/caelestia/hypr-user.conf
 cp -r "$HOME/dotfiles/CustomHyprConfigs/monitors.conf" ~/.config/hypr-custom/monitors.conf
 cp -r "$HOME/dotfiles/CustomHyprConfigs/monitors-alt.conf" ~/.config/hypr-custom/monitors-alt.conf
 cp -r "$HOME/dotfiles/theme" ~/theme
-cp -r "$HOME/dotfiles/myscripts" ~/myscripts
+cp -r $HOME/dotfiles/myscripts/* ~/myscripts
 cp -r $HOME/dotfiles/zsh/* ~/.oh-my-zsh
 cp -r $HOME/dotfiles/shell.json ~/.config/caelestia/shell.json
 
