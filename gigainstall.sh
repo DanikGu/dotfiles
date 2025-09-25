@@ -88,6 +88,7 @@ yay -S --needed \
   vivaldi \
   thunar \
   cargo \
+  keepassxc \
   --noconfirm
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
@@ -130,4 +131,6 @@ gh auth login
 git clone https://github.com/Mauitron/NiflVeil.git
 cd NiflVeil/niflveil
 cargo build --release
-cp -r target/release/niflveil /usr/local/bin/
+sudo cp target/release/niflveil /usr/local/bin/
+
+echo "Install script ended, don't forget to setup keepassxc with your database and update browser exstension with keepassxc"
