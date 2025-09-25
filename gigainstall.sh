@@ -116,6 +116,8 @@ cp -r "$HOME/dotfiles/CustomHyprConfigs/monitors-alt.conf" ~/.config/hypr-custom
 cp -r "$HOME/dotfiles/theme" ~/theme
 cp -r "$HOME/dotfiles/myscripts" ~/myscripts
 cp -r $HOME/dotfiles/zsh/* ~/.oh-my-zsh
+cp -r $HOME/dotfiles/shell.json ~/.config/caelestia/shell.json
+
 chmod +x ~/myscripts/*
 
 git config --global user.name "DanikGu"
@@ -128,9 +130,14 @@ git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
 printf "aPassword" | secret-tool store --label="test" foo bar
 gh auth login
 
-git clone https://github.com/Mauitron/NiflVeil.git
-cd NiflVeil/niflveil
-cargo build --release
-sudo cp target/release/niflveil /usr/local/bin/
+if command -c niflveil >/dev/null 2>&1; then
+  echo "niflveil already installed"
+else
+  git clone https://github.com/Mauitron/NiflVeil.git
+  cd NiflVeil/niflveil
+  cargo build --release
+  sudo cp target/release/niflveil /usr/local/bin/
+  sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+fi
 
 echo "Install script ended, don't forget to setup keepassxc with your database and update browser exstension with keepassxc"
