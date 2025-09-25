@@ -111,13 +111,22 @@ chsh -s $(which zsh)
 sudo systemctl enable cronie.service
 sudo systemctl start cronie.service
 
-git clone https://github.com/LazyVim/starter ~/.config/nvim
+if [ -d "$HOME/.config/nvim" ]; then
+  echo "Nvim aready pulled"
+  rm -rf $HOME/.config/nvim/
+fi
+echo "Pulling NVIM"
+
 rm -rf ~/.config/nvim/.git
+git clone https://github.com/LazyVim/starter ~/.config/nvim
 
 mkdir -p ~/.config
 mkdir -p ~/.config/caelestia
 mkdir -p ~/.config/hypr-custom
+mkdir -p ~/.config/superfile
 mkdir -p ~/.oh-my-zsh
+
+cp -r "$HOME/dotfiles/superfile/" ~/.config/
 cp -r "$HOME/dotfiles/nvim" ~/.config/
 cp -r "$HOME/dotfiles/kitty" ~/.config/
 cp -r "$HOME/dotfiles/.zshrc" "$HOME/"
@@ -161,7 +170,8 @@ else
   sudo cp target/release/niflveil /usr/local/bin/
 fi
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/keyitdev/sddm-astronaut-theme/master/setup.sh)"
 sudo npm install -g @google/gemini-cli
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/keyitdev/sddm-astronaut-theme/master/setup.sh)"
 
 echo "Install script ended, don't forget to setup keepassxc with your database and update browser exstension with keepassxc and gemini-cli project id"
