@@ -53,6 +53,8 @@ yay -S --needed \
   python-hatch-vcs \
   caelestia-cli \
   cronie \
+  nodejs \
+  npm \
   --noconfirm
 
 INSTALL_DIR="${HOME}/.local/share/caelestia"
@@ -128,16 +130,29 @@ systemctl --user enable gcr-ssh-agent.socket
 systemctl --user start gcr-ssh-agent.socket
 git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
 printf "aPassword" | secret-tool store --label="test" foo bar
-gh auth login
+read -p "Do you want to log in to GitHub? (y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  gh auth login
+fi
 
 if command -c niflveil >/dev/null 2>&1; then
   echo "niflveil already installed"
 else
-  git clone https://github.com/Mauitron/NiflVeil.git
-  cd NiflVeil/niflveil
+  if [ -d "NiflVeil" ]; then
+    echo "NiflVeil directory already exists, pulling latest changes"
+    cd NiflVeil
+    git pull
+    cd niflveil
+  else
+    git clone https://github.com/Mauitron/NiflVeil.git
+    cd NiflVeil/niflveil
+  fi
   cargo build --release
   sudo cp target/release/niflveil /usr/local/bin/
-  sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 fi
 
-echo "Install script ended, don't forget to setup keepassxc with your database and update browser exstension with keepassxc"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/keyitdev/sddm-astronaut-theme/master/setup.sh)"
+sudo npm install -g @google/gemini-cli
+
+echo "Install script ended, don't forget to setup keepassxc with your database and update browser exstension with keepassxc and gemini-cli project id"
