@@ -58,3 +58,4 @@ yay -S --needed \
 mkdir -p ~/.config/superfile
 cp -r $HOME/dotfiles/superfile/ ~/.config/
 cp -r $HOME/dotfiles/kitty ~/.config/
+kitten choose-font
