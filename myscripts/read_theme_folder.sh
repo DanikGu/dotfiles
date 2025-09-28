@@ -17,7 +17,7 @@ if [ ! -d "$base_dir" ]; then
   exit 1
 fi
 
-# --- 2. Subfolder Validation ---
+# --- 2. Subfolder Validation & Output ---
 # Define the list of required subfolders.
 required_folders=("sunrise" "sunset" "day" "night")
 
@@ -31,22 +31,14 @@ for folder_name in "${required_folders[@]}"; do
     exit 1
   fi
 
-  # Exit if a subfolder is empty.
-  # 'ls -A' lists all entries except for . and ..
-  if [ -z "$(ls -A "$subfolder_path")" ]; then
-    echo "Error: Subfolder '$subfolder_path' cannot be empty." >&2
-    exit 1
-  fi
-done
+  # Count the number of items in the directory robustly.
+  shopt -s nullglob
+  files=("$subfolder_path"/*)
+  item_count=${#files[@]}
+  shopt -u nullglob
 
-# --- 3. Output Machine-Readable Data ---
-# If all validations pass, output the data for another script to use.
-for folder_name in "${required_folders[@]}"; do
-  subfolder_path="$base_dir/$folder_name"
-  # Count the number of items in the directory.
-  item_count=$(ls -A "$subfolder_path" | wc -l)
-  # Get the full, absolute path to the directory.
-  absolute_path=$(readlink -f "$subfolder_path")
+  # Get the full, absolute path to the directory portably.
+  absolute_path=$(cd "$subfolder_path" && pwd)
 
   # Output the path and count as variable assignments.
   # Example: sunrise_path="/path/to/folder/sunrise"

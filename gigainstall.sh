@@ -70,7 +70,7 @@ if [ -d "$INSTALL_DIR" ]; then
   cd "$INSTALL_DIR"
   git pull
 else
-  git clone https://github.com/DanikGu/caelestia.git "$INSTALL_DIR"
+  git clone https://github.com/caelestia-dots/caelestia.git "$INSTALL_DIR"
 fi
 
 cd "$INSTALL_DIR"
@@ -99,6 +99,7 @@ yay -S --needed \
   cargo \
   keepassxc \
   steam \
+  virtualbox \
   --noconfirm
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
@@ -128,17 +129,15 @@ mkdir -p ~/.config/hypr-custom
 mkdir -p ~/.config/superfile
 mkdir -p ~/.oh-my-zsh
 
-cp -r "$HOME/dotfiles/superfile/" ~/.config/
-cp -r "$HOME/dotfiles/nvim" ~/.config/
-cp -r "$HOME/dotfiles/kitty" ~/.config/
-cp -r "$HOME/dotfiles/.zshrc" "$HOME/"
-cp -r "$HOME/dotfiles/hypr-user.conf" ~/.config/caelestia/hypr-user.conf
-cp -r "$HOME/dotfiles/CustomHyprConfigs/monitors.conf" ~/.config/hypr-custom/monitors.conf
-cp -r "$HOME/dotfiles/CustomHyprConfigs/monitors-alt.conf" ~/.config/hypr-custom/monitors-alt.conf
-cp -r "$HOME/dotfiles/theme" ~/theme
+cp -r $HOME/dotfiles/superfile/ ~/.config/
+cp -r $HOME/dotfiles/nvim ~/.config/
+cp -r $HOME/dotfiles/kitty ~/.config/
+cp -r $HOME/dotfiles/.zshrc "$HOME/"
+cp -r $HOME/dotfiles/theme ~/theme
+cp -r $HOME/dotfiles/CustomHyprConfigs/* ~/.config/hypr-custom/
 cp -r $HOME/dotfiles/myscripts/* ~/myscripts
 cp -r $HOME/dotfiles/zsh/* ~/.oh-my-zsh
-cp -r $HOME/dotfiles/shell.json ~/.config/caelestia/shell.json
+cp -r $HOME/dotfiles/CaelestiaCustom/* ~/.config/caelestia/
 
 chmod +x ~/myscripts/*
 

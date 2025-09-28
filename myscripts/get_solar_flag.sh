@@ -7,7 +7,7 @@ if ! command -v jq &>/dev/null; then
 fi
 
 # Fetch and Parse Data
-json_response=$(curl -s "https://api.sunrisesunset.io/json?lat=50.27&lng=30.53")
+json_response=$(curl -s --connect-timeout 5 "https://api.sunrisesunset.io/json?lat=50.27&lng=30.53")
 api_status=$(echo "$json_response" | jq -r '.status')
 
 if [ "$api_status" != "OK" ]; then
