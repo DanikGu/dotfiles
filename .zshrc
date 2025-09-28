@@ -136,3 +136,7 @@ chmod +x ~/myscripts/*
 export NVM_DIR=~/.nvm
  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
+# Source secret environment variables
+if [ -f "$HOME/.secret-env.zsh" ]; then
+  source "$HOME/.secret-env.zsh"
+fi
