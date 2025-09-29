@@ -1,28 +1,20 @@
 #!/bin/bash
 
-FZF_TERMINAL_TITLE="HyprWindowSwitcherFZF"
-
-if [[ -z "$1" ]]; then
-  hyprctl dispatch exec "kitty --class xlipse --title \"$FZF_TERMINAL_TITLE\" bash -c \"\\\"$0\\\" --fzf-mode\"" &
-  exit 0
-fi
-
+# Get the active workspace ID
 active_workspace_id=$(hyprctl activeworkspace -j | jq ".id")
 
-scratchpad_workspace_id=$((10 + active_workspace_id))
-
+# Get the list of windows from the special workspace
 window_list=$(hyprctl -j clients |
-  jq -r '.[] | select(.workspace.name == "special:minimum") | "\(.address)\t\(.title)\t(.workspace.id)"')
+  jq -r '.[] | select(.workspace.name == "special:minimum") | "\(.title)\t"')
 
-selected_window_address=$(echo "$window_list" | fzf \
-  --wrap \
-  --delimiter=$'\t' \
-  --with-nth=2 \
-  --layout=reverse | awk -F"\t" "{print \$1}")
+# Use fuzzel to select a window
+selected_window_line=$(echo -e "$window_list" | fuzzel --dmenu --placeholder "Select a window")
 
-if [ -n "$selected_window_address" ]; then
-  hyprctl dispatch movetoworkspacesilent "$active_workspace_id,address:$selected_window_address"
-  hyprctl dispatch focuswindow "address:$selected_window_address"
+# If a window is selected, move it to the active workspace and focus it
+if [ -n "$selected_window_line" ]; then
+  selected_window_address=$(echo "$selected_window_line" | awk -F"\t" '{print $1}')
+  hyprctl dispatch movetoworkspacesilent "$active_workspace_id,title:$selected_window_address"
+  hyprctl dispatch focuswindow "title:$selected_window_address"
 fi
 
 exit 0
