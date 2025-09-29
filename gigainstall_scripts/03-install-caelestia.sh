@@ -12,10 +12,7 @@ fi
 
 cd "$INSTALL_DIR"
 
-rm -rf ~/.config/hypr
-rm -rf ~/.config/btop
-aur_helper="yay"
-fish ./install.fish $@
+./install.fish --noconfirm
 
 mkdir -p ~/.config/caelestia
 mkdir -p ~/.config/hypr-custom
