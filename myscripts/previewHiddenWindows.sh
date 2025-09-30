@@ -3,18 +3,43 @@
 # Get the active workspace ID
 active_workspace_id=$(hyprctl activeworkspace -j | jq ".id")
 
-# Get the list of windows from the special workspace
-window_list=$(hyprctl -j clients |
-  jq -r '.[] | select(.workspace.name == "special:minimum") | "\(.title)\t"')
+# Build list of windows with unique display names
+declare -A title_to_address
+declare -A display_name_to_address
+declare -A title_count
 
-# Use fuzzel to select a window
-selected_window_line=$(echo -e "$window_list" | fuzzel --dmenu --placeholder "Select a window")
+# Fetch clients from special workspace
+clients=$(hyprctl -j clients | jq -c '.[] | select(.workspace.name == "special:minimum")')
 
-# If a window is selected, move it to the active workspace and focus it
-if [ -n "$selected_window_line" ]; then
-  selected_window_address=$(echo "$selected_window_line" | awk -F"\t" '{print $1}')
-  hyprctl dispatch movetoworkspacesilent "$active_workspace_id,title:$selected_window_address"
-  hyprctl dispatch focuswindow "title:$selected_window_address"
+while read -r client; do
+  title=$(echo "$client" | jq -r '.title')
+  address=$(echo "$client" | jq -r '.address')
+
+  # Handle duplicate titles
+  count=${title_count["$title"]}
+  if [[ -n "$count" ]]; then
+    count=$((count + 1))
+    display_title="${title} (${count})"
+  else
+    count=1
+    display_title="$title"
+  fi
+
+  title_count["$title"]=$count
+  display_name_to_address["$display_title"]="$address"
+done <<<"$clients"
+
+# Build the menu input list
+menu_list=$(printf "%s\n" "${!display_name_to_address[@]}" | sort)
+
+# Show menu
+selected_title=$(echo "$menu_list" | fuzzel --dmenu --placeholder "Select a window")
+
+# Handle selection
+if [[ -n "$selected_title" ]]; then
+  selected_address="${display_name_to_address["$selected_title"]}"
+  hyprctl dispatch movetoworkspacesilent "$active_workspace_id,address:$selected_address"
+  hyprctl dispatch focuswindow "address:$selected_address"
 fi
 
 exit 0
