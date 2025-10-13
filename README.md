@@ -12,3 +12,8 @@ My dotfiles to migrate my configuration
   -  Copy ~/Source ~/Downloads
   -  Copy KeePassXc database ~/
   -  Copy zhrc private variables
+
+## Post install cisko configuration 
+1) sudo systemctl enable --now vpnagentd.service
+2) sudo pacman -S webkit2gtk
+3) WEBKIT_DISABLE_DMABUF_RENDERER=1 GDK_BACKEND=x11 /opt/cisco/secureclient/bin/vpnui
