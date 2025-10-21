@@ -54,6 +54,8 @@ yay -S --needed \
   qpwgraph \
   kitty \
   archlinux-xdg-menu \
+  dolphin \
+  ark \
   --noconfirm
 
 #make dolphin work correctly
