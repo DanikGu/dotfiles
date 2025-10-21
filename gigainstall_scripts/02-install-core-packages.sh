@@ -53,7 +53,11 @@ yay -S --needed \
   npm \
   qpwgraph \
   kitty \
+  archlinux-xdg-menu \
   --noconfirm
+
+#make dolphin work correctly
+XDG_MENU_PREFIX=arch- kbuildsycoca6
 
 mkdir -p ~/.config/superfile
 cp -r $HOME/dotfiles/superfile/ ~/.config/

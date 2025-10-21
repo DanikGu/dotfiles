@@ -107,6 +107,7 @@ alias grep='grep --color=auto'
 alias vim='nvim'
 alias vi='nvim'
 alias fp='$HOME/myscripts/fp.sh'
+alias workvpn='WEBKIT_DISABLE_DMABUF_RENDERER=1 GDK_BACKEND=x11 /opt/cisco/secureclient/bin/vpnui'
 
 export PATH="$PATH:$HOME/.dotnet/tools:$HOME/myscripts"
 export EDITOR="nvim"
@@ -140,3 +141,7 @@ export NVM_DIR=~/.nvm
 if [ -f "$HOME/.secret-env.zsh" ]; then
   source "$HOME/.secret-env.zsh"
 fi
+
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+export GCM_CREDENTIAL_STORE=secretservice

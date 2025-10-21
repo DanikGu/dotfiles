@@ -2,7 +2,7 @@
   "appearance": {
     "anim": {
       "durations": {
-        "scale": 0.8
+        "scale": 0.6
       }
     },
     "padding": {
@@ -13,11 +13,23 @@
     }
   },
   "services": {
-    "useTwelveHourClock": false,
     "useFahrenheit": false,
+    "useTwelveHourClock": false,
     "smartScheme": true
   },
   "border": {
     "thickness": 2
+  },
+  "bar": {
+    "status": {
+      "showKbLayout": true,
+      "showAudio": true
+    },
+    "workspaces": {
+      "showWindows": false
+    }
+  },
+  "launcher": {
+    "vimKeybinds": true
   }
 }
