@@ -142,6 +142,7 @@ if [ -f "$HOME/.secret-env.zsh" ]; then
   source "$HOME/.secret-env.zsh"
 fi
 
+export XDG_MENU_PREFIX=arch- kbuildsycoca6
 export DOTNET_ROOT=$HOME/.dotnet
 export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 export GCM_CREDENTIAL_STORE=secretservice
