@@ -56,11 +56,13 @@ yay -S --needed \
   archlinux-xdg-menu \
   dolphin \
   ark \
+  noto-fonts \
+  noto-fonts-cjk \
+  noto-fonts-emoji \
   --noconfirm
 
 #make dolphin work correctly
 XDG_MENU_PREFIX=arch- kbuildsycoca6
-
 mkdir -p ~/.config/superfile
 cp -r $HOME/dotfiles/superfile/ ~/.config/
 cp -r $HOME/dotfiles/kitty ~/.config/
